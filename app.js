@@ -1,4 +1,6 @@
-function hello(name){
-    console.log("hello" + name);
-}
-hello("dhruvit")
+const os = require('os');
+
+var tm = os.totalmem();
+var fm = os.freemem();
+
+console.log('Total Memory:' + tm);
