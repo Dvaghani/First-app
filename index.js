@@ -1,7 +1,7 @@
-const os = require('os');
+const fs = require('fs');
 
-//here is the how we can calculate the total memory in node.js
-var tm = os.totalmem();
-var fm = os.freemem();
+const readfile = fs.readFileSync('./text/input.txt','utf-8')
+console.log(readfile)
 
-console.log('Total Memory:' + tm);
+const writefile = `${readfile} Dhruvit.\n time:${Date.now()}`
+fs.writeFileSync('./text/output.txt',writefile)
