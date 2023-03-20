@@ -1,6 +1,7 @@
 const fs = require("fs");
 const http = require("http");
 const url = require('url');
+const replaceTemplate =require('./modules/replaceTemplate');
 // //Blocking, sync
 const tempOverview = fs.readFileSync(
   `${__dirname}/templates/templates-overview.html`,
@@ -17,19 +18,6 @@ const tempCard = fs.readFileSync(
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const dataObj = JSON.parse(data);
 
-const replceTemplate = (temp, product) => {
-  let output = temp.replace(/{%PRODUCTNAME%}/g, product.productName);
-  output = output.replace(/{%IMAGE%}/g, product.image);
-  output = output.replace(/{%FROM%}/g, product.from);
-  output = output.replace(/{%NUTRIENTS%}/g, product.nutrients);
-  output = output.replace(/{%QUANTITY%}/g, product.quantity);
-  output = output.replace(/{%PRICE%}/g, product.price);
-  output = output.replace(/{%ID%}/g, product.id);
-  if (!product.organic)
-    output = output.replace(/{%NOT_ORGANIC%}/g, "not-organic");
-  output = output.replace(/{%DESCRIPTION%}/g, product.description);
-  return output;
-};
 // console.log(readfile);
 
 // const writefile = `${readfile} Dhruvit.\n time:${Date.now()}`
@@ -49,7 +37,7 @@ const server = http.createServer((req, res) => {
   const { query, pathname } = url.parse(req.url, true);
   if (pathname === "/" || pathname === "/overview") {
     res.writeHead(200, { "Content-type": "text/html" });
-    const cardhtml = dataObj.map((el) => replceTemplate(tempCard, el)).join("");
+    const cardhtml = dataObj.map((el) => replaceTemplate(tempCard, el)).join("");
     const output = tempOverview.replace("{%PRODUCT_CARDS%}", cardhtml);
     res.end(output);
   } else if (pathname === "/api") {
@@ -58,7 +46,7 @@ const server = http.createServer((req, res) => {
   } else if (pathname === "/product") {
     res.writeHead(200,{ "Content-type": "text/html" });
     const product = dataObj[query.id];
-    const output = replceTemplate(tempProduct, product);
+    const output = replaceTemplate(tempProduct, product);
     res.end(output);
   } else {
     res.writeHead(404, {
