@@ -1,0 +1,25 @@
+{
+  "name": "first-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dvaghani/First-app.git"
+  },
+  "author": "Dhruvit Vaghani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dvaghani/First-app/issues"
+  },
+  "homepage": "https://github.com/Dvaghani/First-app#readme",
+  "dependencies": {
+    "slugify": "^1.6.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.21"
+  }
+}
